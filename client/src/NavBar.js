@@ -26,7 +26,9 @@ function NavBar({ user, setUser }) {
             navbarScroll
           >
             <Nav.Link href="/" >Feeds</Nav.Link>
+            <Nav.Link href="/My">My posts</Nav.Link>
             <Nav.Link href="/New">New post</Nav.Link>
+            
             {/* <Nav.Link href="/Logout" onClick={handleLogoutClick}>Logout</Nav.Link> */}
           </Nav>
           

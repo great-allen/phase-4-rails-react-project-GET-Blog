@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react'
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,34 +14,45 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import Stack from '@mui/material/Stack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PostDetails from "./PostDetails";
 
 const itemsPerPage = 16
 
 function Post({posts}) {
 
   const [page, setPage] = useState(1);
-
+  const [showPost,setShowPost]=useState(false)
+  const [postDetail,setPostDetail]=useState([])
   // Pagination
 const startIndex = (page - 1) * itemsPerPage;
 const endIndex = startIndex + itemsPerPage;
 const currentData = posts.slice(startIndex, endIndex);
-
 const handleChange = (event, value) => {
   setPage(value);
 
 window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
+  
+const handleClick=(post)=>{
+  setPostDetail(post)
+  setShowPost(true)
+  
+  
+}
+
   return (
+    <>
+    {showPost?<PostDetails postDetail={postDetail}/>:
     <div>
       <Grid container spacing={1} >
         {currentData &&currentData.map(post=>(
           <Grid item key={post.id}>
-              <Card sx={{ maxWidth: 345 }}>
+              <Card sx={{ maxWidth: 345 }} onClick={()=>handleClick(post)}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            <img src={post.user.image_url} alt='' />
           </Avatar>
         }
         action={
@@ -90,7 +101,8 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
           />
         )}
       </Stack>
-    </div>
+    </div>}
+    </>
   )
 }
 
