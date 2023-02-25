@@ -5,11 +5,11 @@ import Login from "./Login";
 import Post from "./Post";
 import NewPost from "./NewPost";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+// import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
-
+  const [posts,setPosts]=useState([])
   useEffect(() => {
     // auto-login
     fetch("/me").then((r) => {
@@ -18,8 +18,13 @@ function App() {
       }
     });
   }, []);
+  useEffect(()=>{
+    fetch("/posts").then(r=>r.json()).then(setPosts)
+ },[])
 
   if (!user) return <Login onLogin={setUser} />;
+
+ 
 
   return (
     <div className="App">
@@ -30,7 +35,7 @@ function App() {
             <NewPost user={user} />
         </Route>
         <Route path="/">
-            <Post />
+            <Post posts={posts}/>
           </Route>
       </Switch>
     </div>
