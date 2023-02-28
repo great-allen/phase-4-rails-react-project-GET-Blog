@@ -43,7 +43,7 @@ function SignupForm({onLogin}) {
 
   return (
     <Form onSubmit={handleSubmit} style={{width:"400px"}}> 
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
         <Form.Label >Username</Form.Label>
         <br/>
         <Form.Control  type="text" placeholder=" " value={username}

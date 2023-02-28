@@ -44,7 +44,7 @@ function LoginForm({onLogin}) {
 
   return (
     <Form onSubmit={handleSubmit} style={{width:"400px"}}>
-    <Form.Group className="mb-3" controlId="formGroupEmail">
+    <Form.Group className="mb-3" controlId="formGroupEmail" >
       <Form.Label >Username</Form.Label>
       <br/>
       <Form.Control  type="text" placeholder="Enter username" value={username}

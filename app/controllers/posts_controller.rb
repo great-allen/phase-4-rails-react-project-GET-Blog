@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     def show
         post=find_post
         if post
-            render json: post, serializer: PostShowWithUsersSerializer,  status: :ok
+            render json: post.reviews,  status: :ok
         else
             render_not_found_response
         end

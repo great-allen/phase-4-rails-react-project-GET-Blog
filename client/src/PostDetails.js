@@ -17,9 +17,29 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-function PostDetails({postDetail}) {
+
+
+function PostDetails({postDetail,user,reviews,onAddReview}) {
     
-  
+  const [newReview,setNewReview]=useState([])
+
+  const addReview=(e)=>{
+    e.preventDefault();
+    fetch('/reviews',{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            user_id: user.id,
+            post_id: postDetail.id,
+            content: newReview
+        }),
+      }).then(r=>r.json()).then(data=>{
+        onAddReview(data)
+        setNewReview('')
+      })
+  }
     
   return (
     <>
@@ -62,23 +82,27 @@ function PostDetails({postDetail}) {
     </Card>
    
     </div>
+    <Form style={{width:"80%",marginTop:"2%",marginLeft:"10%"}} onSubmit={addReview}>
     <InputGroup className="mb-3">
         <Form.Control
-          placeholder="Recipient's username"
+          placeholder="Write your review"
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
+          value={newReview}
+          onChange={(e)=>setNewReview(e.target.value)}
         />
-        <Button variant="outline-secondary" id="button-addon2">
-          Button
+        <Button variant="outline-secondary" id="button-addon2" type="submit">
+          Save
         </Button>
       </InputGroup>
+      </Form>
     <div>
         <p style={{marginTop:"2%",marginLeft:"2%", fontSize:"25px", color:"purple"}}>
             Reviews:
         </p>
     </div>
-    {postDetail.reviews ? (
-  postDetail.reviews.map((review) => {
+    {reviews ? (
+  reviews.map((review) => {
     return (
       <ListGroup as="ol" key={review.id}>
         <ListGroup.Item

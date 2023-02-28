@@ -1,0 +1,14 @@
+.NewPostDiv {
+border: 1px solid lightgrey;
+width: 600px;
+height: 500px;
+margin-left:auto;
+position:relative;
+margin:auto;
+margin-top:3%;
+border-radius:25px;
+}
+
+.NewPostDiv:hover {
+    box-shadow: 0px 0px 10px darkslateblue;
+  }

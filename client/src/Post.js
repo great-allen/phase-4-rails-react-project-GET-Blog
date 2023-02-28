@@ -16,13 +16,16 @@ import Stack from '@mui/material/Stack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PostDetails from "./PostDetails";
 
+
 const itemsPerPage = 16
 
-function Post({posts}) {
-
+function Post({user,posts}) {
+  const [reviews,setReviews]=useState([])
   const [page, setPage] = useState(1);
   const [showPost,setShowPost]=useState(false)
   const [postDetail,setPostDetail]=useState([])
+  
+  
   // Pagination
 const startIndex = (page - 1) * itemsPerPage;
 const endIndex = startIndex + itemsPerPage;
@@ -37,15 +40,20 @@ window.scrollTo({ top: 0, behavior: 'smooth' });
 const handleClick=(post)=>{
   setPostDetail(post)
   setShowPost(true)
-  
+  fetch(`/posts/${post.id}`).then(r=>r.json()).then(setReviews)
   
 }
 
+  const onAddReview=(review)=>{
+    setReviews([review,...reviews])
+  }
+
+
   return (
     <>
-    {showPost?<PostDetails postDetail={postDetail}/>:
+    {showPost?<PostDetails postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview}/>:
     <div>
-      <Grid container spacing={1} >
+      <Grid container spacing={1} style={{marginLeft:"3px",marginTop:"5px"}}>
         {currentData &&currentData.map(post=>(
           <Grid item key={post.id}>
               <Card sx={{ maxWidth: 345 }} onClick={()=>handleClick(post)}>
@@ -56,7 +64,7 @@ const handleClick=(post)=>{
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings" >
             <MoreVertIcon />
           </IconButton>
         }

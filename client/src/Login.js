@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 function Login({ onLogin }) {
     const [showLogin, setShowLogin] = useState(true);
   return (
-    <div style={{marginLeft:"40%",marginTop
+    <div style={{marginLeft:"35%",marginTop
     :"2%"}}>
         <h1>GET</h1>
         <h3>Get Everyone Together</h3>

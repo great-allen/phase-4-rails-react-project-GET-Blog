@@ -7,12 +7,17 @@ import NewPost from "./NewPost";
 
 import MyPosts from "./MyPosts";
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './App.css';
+import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [posts,setPosts]=useState([]);
+  const [posts,setPosts]=useState([])
+  const [editPost,setEditPost]=useState([])
   
+  useEffect(()=>{
+    fetch("/posts").then(r=>r.json()).then(setPosts)
+ 
+},[])
   
   useEffect(() => {
     // auto-login
@@ -22,33 +27,41 @@ function App() {
       }
     });
   }, []);
-  useEffect(()=>{
-    fetch("/posts").then(r=>r.json()).then(setPosts)
- 
   
-  
-},[])
 
   if (!user) return <Login onLogin={setUser} />;
+   
+  const addToEdit=(post)=>{
+    setEditPost(post)
+  }
 
- 
+
+  const updatePost=(newPost)=>{
+    
+    const updatedPosts=posts.map((post)=>{
+      return post.id===newPost.id? newPost:post
+      
+    })
+    setPosts(updatedPosts)
+    
+  }
 
   return (
     <>
-    <div className="App">
+    
       <NavBar user={user} setUser={setUser}/>
       <Switch>
-      <Route path="/">
-            <Post posts={posts} />
-          </Route>
-      <Route path="/new">
-            <NewPost user={user} />
+      <Route path="/New">
+            <NewPost user={user} editPost={editPost} updatePost={updatePost}/>
         </Route>
           <Route path="/My">
-            <MyPosts user={user}/>
+            <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit}/>
+          </Route>
+          <Route path="/">
+            <Post  user={user} posts={posts}/>
           </Route>
       </Switch>
-    </div>
+    
     
     </>
     
