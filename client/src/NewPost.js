@@ -77,17 +77,47 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 
 
 
-function NewPost({editPost,user,updatePost}) {
+function NewPost({editPost,user,updatePost,addToPosts}) {
   const [heading,setHeading]=useState(editPost.title)
   const [body,setBody]=useState(editPost.content)
   const [isEdit,setIsEdit]=useState(false)
-  const [imageUrl,setImageUrl]=useState([])
+  const [imageUrl,setImageUrl]=useState(editPost.image_url)
+  const [title,setTitle]=useState('')
+  const [content,setContent]=useState('')
+  const [url,setUrl]=useState('')
   const [errors,setErrors]=useState([])
   const history = useHistory();
   
   // const [isLoading, setIsLoading] = useState(false);
   const handleClick=()=>{
     return setIsEdit(true)
+  }
+
+  const onAdd=()=>{
+    fetch("/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title:title,
+        content:content,
+        image_url:url,
+        user_id:user.id
+      }),
+    }).then((r) => {
+      
+      if (r.ok) {
+        r.json().then((data) => {
+          history.push("/My")
+          // setIsEdit(false)
+          addToPosts(data)
+        })
+        
+      } else {
+        r.json().then((err) => alert(err.errors));
+      }
+    });
   }
 
   const onUpdate=()=>{
@@ -109,7 +139,7 @@ function NewPost({editPost,user,updatePost}) {
       if (r.ok) {
         r.json().then((data) => {
           history.push("/My")
-          // setIsEdit(false)
+          
           updatePost(data)
         })
       } else {
@@ -118,7 +148,22 @@ function NewPost({editPost,user,updatePost}) {
     });
   }
 
-  
+  // const onDelete=()=>{
+  //   setIsLoading(true)
+  //       fetch(`/posts/${editPost.id}`,{
+  //           method:"DELETE"}).then((r) => {
+      
+  //     setIsLoading(false)
+  //             if (r.ok) {
+  //               r.json().then((data)=>{
+  //                 deletePost(data)
+  //               })
+  //               history.push("/My")
+  //             } else {
+  //               r.json().then((err) => setErrors(err.errors));
+  //             }
+  //           })
+  //     }
 
   const styles = useStyles();
   const {
@@ -141,6 +186,9 @@ function NewPost({editPost,user,updatePost}) {
         <Button variant="contained" color="primary" onClick={handleClick}>
           Edit
         </Button>
+        {/* <Button variant="contained" color="primary" onClick={onDelete}>
+        {isLoading ? "Loading..." : "Delete"}
+        </Button> */}
       </>
     }
   />
@@ -196,6 +244,8 @@ function NewPost({editPost,user,updatePost}) {
           multiline
           maxRows={7}
           style={{width:370,marginLeft:100}}
+          value={title}
+          onChange={(e)=>setTitle(e.target.value)}
         />
         <TextField
           id="outlined-multiline-static"
@@ -203,6 +253,8 @@ function NewPost({editPost,user,updatePost}) {
           multiline
           rows={4}
           style={{width:370,marginLeft:100,marginTop:15,overflow:"hidden"}}
+          value={content}
+          onChange={(e)=>setContent(e.target.value)}
         />
         <TextField
           id="outlined-multiline-flexible"
@@ -210,9 +262,11 @@ function NewPost({editPost,user,updatePost}) {
           multiline
           maxRows={7}
           style={{width:370,marginLeft:100,marginTop:15}}
+          value={url}
+          onChange={(e)=>setUrl(e.target.value)}
         />
         <Stack direction="row" spacing={2}>
-        <Button variant="outlined" style={{marginLeft:100,marginTop:10,color:"purple"}}>create</Button>
+        <Button variant="outlined" style={{marginLeft:100,marginTop:10,color:"purple"}} onClick={onAdd}>create</Button>
       </Stack>
     </div>)}
   </>

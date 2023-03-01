@@ -14,6 +14,8 @@ function App() {
   const [posts,setPosts]=useState([])
   const [editPost,setEditPost]=useState([])
   
+
+ 
   useEffect(()=>{
     fetch("/posts").then(r=>r.json()).then(setPosts)
  
@@ -36,6 +38,10 @@ function App() {
   }
 
 
+  const addToPosts=(newPost)=>{
+    setPosts([newPost,...posts])
+  }
+
   const updatePost=(newPost)=>{
     
     const updatedPosts=posts.map((post)=>{
@@ -46,16 +52,36 @@ function App() {
     
   }
 
+  // const deletePost=(deletedPost)=>{
+    
+  //   const deletePosts=posts.filter((post)=>{
+  //     return post.id!==deletedPost.id
+  //   })
+  //   setPosts(deletePosts)
+    
+  // }
+  const deletePost = (deletedPost) => {
+    fetch('/posts')
+      .then(r => r.json())
+      .then(newPosts => {
+        setPosts(newPosts);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+  
+
   return (
     <>
     
       <NavBar user={user} setUser={setUser}/>
       <Switch>
       <Route path="/New">
-            <NewPost user={user} editPost={editPost} updatePost={updatePost}/>
+            <NewPost user={user} editPost={editPost} updatePost={updatePost} addToPosts={addToPosts} deletePost={deletePost}/>
         </Route>
           <Route path="/My">
-            <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit}/>
+            <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit} deletePost={deletePost} />
           </Route>
           <Route path="/">
             <Post  user={user} posts={posts}/>

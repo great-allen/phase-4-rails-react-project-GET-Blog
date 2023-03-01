@@ -36,7 +36,7 @@ class PostsController < ApplicationController
         post=find_post
         if post
             post.destroy
-            head :no_content
+            render json: {},status: :ok
         else
             render_not_found_response
         end

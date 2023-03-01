@@ -1,26 +1,51 @@
 import React, { useState } from 'react'
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import Card from '@mui/material/Card';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+import cx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
+import Share from '@material-ui/icons/Share';
+import { useSoftRiseShadowStyles } from '@mui-treasury/styles/shadow/softRise';
+import { useSlopeCardMediaStyles } from '@mui-treasury/styles/cardMedia/slope';
+import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
+import TextInfoContent from '@mui-treasury/components/content/textInfo';
+
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-
+const useStyles = makeStyles(() => ({
+    root: {
+      maxWidth: 304,
+      margin: 'auto',
+    },
+    content: {
+      padding: 24,
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+      border: '2px solid #fff',
+      margin: '-48px 32px 0 auto',
+      '& > img': {
+        margin: 0,
+      },
+    },
+  }));
 
 function PostDetails({postDetail,user,reviews,onAddReview}) {
-    
+    const cardStyles = useStyles();
+  const mediaStyles = useSlopeCardMediaStyles();
+  const shadowStyles = useSoftRiseShadowStyles();
+  const textCardContentStyles = useN01TextInfoContentStyles();
   const [newReview,setNewReview]=useState([])
 
   const addReview=(e)=>{
@@ -44,7 +69,34 @@ function PostDetails({postDetail,user,reviews,onAddReview}) {
   return (
     <>
     <div>
-        <Card sx={{ maxWidth: 345, marginLeft:"2%", marginTop:"2%" }}>
+    <Card className={cx(cardStyles.root, shadowStyles.root)}>
+      <CardMedia
+        classes={mediaStyles}
+        image={
+          postDetail.image_url
+        }
+      />
+      <Avatar className={cardStyles.avatar} src={postDetail.user.image_url} />
+      <CardContent className={cardStyles.content}>
+        <TextInfoContent
+          classes={textCardContentStyles}
+          heading={postDetail.title}
+          body={
+            postDetail.content
+          }
+        />
+      </CardContent>
+      <Box px={2} pb={2} mt={-1}>
+        <IconButton>
+          <Share />
+        </IconButton>
+        <IconButton>
+          <FavoriteBorderRounded />
+        </IconButton>
+      </Box>
+    </Card>
+
+        {/* <Card sx={{ maxWidth: 345, marginLeft:"2%", marginTop:"2%" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="user">
@@ -79,7 +131,7 @@ function PostDetails({postDetail,user,reviews,onAddReview}) {
         </IconButton>
         
       </CardActions>
-    </Card>
+    </Card> */}
    
     </div>
     <Form style={{width:"80%",marginTop:"2%",marginLeft:"10%"}} onSubmit={addReview}>

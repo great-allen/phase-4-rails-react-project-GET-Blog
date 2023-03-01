@@ -1,25 +1,57 @@
 import React, { useState} from 'react'
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
+
 import Pagination from '@mui/material/Pagination';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+
 import Stack from '@mui/material/Stack';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 import PostDetails from "./PostDetails";
+import cx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
+import Share from '@material-ui/icons/Share';
+import { useSoftRiseShadowStyles } from '@mui-treasury/styles/shadow/softRise';
+import { useSlopeCardMediaStyles } from '@mui-treasury/styles/cardMedia/slope';
+import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
+import TextInfoContent from '@mui-treasury/components/content/textInfo';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    width: 304,
+    height:410,
+    margin: 'auto',
+  },
+  content: {
+    padding: 24,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    border: '2px solid #fff',
+    margin: '-48px 32px 0 auto',
+    '& > img': {
+      margin: 0,
+    },
+  },
+}));
+
 
 
 const itemsPerPage = 16
 
 function Post({user,posts}) {
+
+  const cardStyles = useStyles();
+  const mediaStyles = useSlopeCardMediaStyles();
+  const shadowStyles = useSoftRiseShadowStyles();
+  const textCardContentStyles = useN01TextInfoContentStyles();
+
   const [reviews,setReviews]=useState([])
   const [page, setPage] = useState(1);
   const [showPost,setShowPost]=useState(false)
@@ -53,46 +85,36 @@ const handleClick=(post)=>{
     <>
     {showPost?<PostDetails postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview}/>:
     <div>
-      <Grid container spacing={1} style={{marginLeft:"3px",marginTop:"5px"}}>
+      <Grid container spacing={3} style={{marginLeft:"4%",marginTop:"5px"}}>
         {currentData &&currentData.map(post=>(
           <Grid item key={post.id}>
-              <Card sx={{ maxWidth: 345 }} onClick={()=>handleClick(post)}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            <img src={post.user.image_url} alt='' />
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings" >
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={post.title}
-        subheader="September 14, 2016"
-      />
+             <Card className={cx(cardStyles.root, shadowStyles.root)} onClick={()=>handleClick(post)}>
       <CardMedia
-        component="img"
-        height="194"
-        image={post.image_url}
-        alt="Paella dish"
+        classes={mediaStyles}
+        image={
+          post.image_url
+        }
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {post.content}
-        </Typography>
+      <Avatar className={cardStyles.avatar} src={post.user.image_url} />
+      <CardContent className={cardStyles.content}>
+        <TextInfoContent
+          classes={textCardContentStyles}
+          heading={post.title}
+          body={
+            post.content
+          }
+        />
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+      <Box px={2} pb={2} mt={-1}>
+        <IconButton>
+          <Share />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton>
+          <FavoriteBorderRounded />
         </IconButton>
-        
-      </CardActions>
-      
+      </Box>
     </Card>
+              
           </Grid>
         ))}
       </Grid>

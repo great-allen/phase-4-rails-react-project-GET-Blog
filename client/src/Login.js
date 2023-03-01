@@ -3,11 +3,12 @@ import { useState } from "react";
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import Button from 'react-bootstrap/Button';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 function Login({ onLogin }) {
     const [showLogin, setShowLogin] = useState(true);
   return (
-    <div style={{marginLeft:"35%",marginTop
-    :"2%"}}>
+    <div style={{display:"flex",flexDirection: 'column',justifyContent:"center",alignItems:"center",height:"100vh"}}>
         <h1>GET</h1>
         <h3>Get Everyone Together</h3>
         {showLogin ? (
