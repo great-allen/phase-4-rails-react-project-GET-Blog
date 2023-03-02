@@ -139,7 +139,7 @@ u25= User.create!(username: 'user25', password: 'password',image_url:"https://im
 
 
 102.times do |i|
-  Post.create(title: Faker::Lorem.sentence(word_count: 4), content: Faker::Lorem.paragraph(sentence_count: 4), image_url: Faker::Avatar.image(slug: Faker::Lorem.word, size: '400x300', format: 'jpg'), user_id: rand(1..25))
+  Post.create(title: Faker::Lorem.sentence(word_count: 2), content: Faker::Lorem.paragraph(sentence_count: 4), image_url: Faker::Avatar.image(slug: Faker::Lorem.word, size: '400x300', format: 'jpg'), user_id: rand(1..25))
 end
 
 100.times do
@@ -150,13 +150,32 @@ end
     post_id = rand(1..102)
   
     # Create a new record with the random user_id and post_id
-    Review.create(user_id: user_id, post_id: post_id,content:Faker::Lorem.paragraph(sentence_count: 2))
+    Review.create(user_id: user_id, post_id: post_id,content:Faker::Lorem.paragraph(sentence_count: 3))
   end
   (1..102).each do |post_id|
     (1..25).each do |user_id|
-      Review.create(user_id: user_id, post_id: post_id, content: Faker::Lorem.paragraph(sentence_count: 2))
+      Review.create(user_id: user_id, post_id: post_id, content: Faker::Lorem.paragraph(sentence_count: 3))
     end
   end
   
 
+  # 25.times do 
+  #    # Generate random user_id between 1 and 15
+  #    user_id = rand(1..25)
   
+  #    # Generate random post_id between 1 and 100
+  #    post_id = rand(1..102)
+  #    Like.create(user_id: user_id,post_id:post_id)
+  # end
+
+  25.times do |user_index|
+    102.times do |post_index|
+      # Randomly generate a boolean value to determine if the user likes the post
+      likes_post = [true, false].sample
+      
+      # Create a new like record for the user and post if they like the post
+      if likes_post
+        Like.create(user_id: user_index + 1, post_id: post_index + 1)
+      end
+    end
+  end

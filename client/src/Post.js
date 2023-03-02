@@ -13,13 +13,15 @@ import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
-import Share from '@material-ui/icons/Share';
+
 import { useSoftRiseShadowStyles } from '@mui-treasury/styles/shadow/softRise';
 import { useSlopeCardMediaStyles } from '@mui-treasury/styles/cardMedia/slope';
 import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
+import { useLabelIconStyles } from '@mui-treasury/styles/icon/label';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -46,7 +48,8 @@ const useStyles = makeStyles(() => ({
 const itemsPerPage = 16
 
 function Post({user,posts}) {
-
+  const gutterStyles = usePushingGutterStyles({ space: 3, firstExcluded: true });
+  const iconLabelStyles = useLabelIconStyles({ linked: true });
   const cardStyles = useStyles();
   const mediaStyles = useSlopeCardMediaStyles();
   const shadowStyles = useSoftRiseShadowStyles();
@@ -80,7 +83,7 @@ const handleClick=(post)=>{
     setReviews([review,...reviews])
   }
 
-
+  
   return (
     <>
     {showPost?<PostDetails postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview}/>:
@@ -106,12 +109,12 @@ const handleClick=(post)=>{
         />
       </CardContent>
       <Box px={2} pb={2} mt={-1}>
-        <IconButton>
-          <Share />
-        </IconButton>
-        <IconButton>
-          <FavoriteBorderRounded />
-        </IconButton>
+      <div className={gutterStyles.parent}>
+      <button type={'button'} tabIndex={0} className={iconLabelStyles.link}>
+        {post.likes.find((like)=>{return like.user_id===user.id})?<><FavoriteIcon className={iconLabelStyles.icon}/>{post.likes.length}</>:<><FavoriteBorderIcon className={iconLabelStyles.icon} /> {post.likes.length}</>}
+        
+      </button>
+      </div>
       </Box>
     </Card>
               

@@ -4,8 +4,9 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import PostDetails from "./PostDetails";
-import ModeTwoToneIcon from '@mui/icons-material/ModeTwoTone';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+
+import Delete from '@material-ui/icons/Delete';
+import Edit from '@material-ui/icons/Edit';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -13,8 +14,7 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteBorderRounded from '@material-ui/icons/FavoriteBorderRounded';
-import Share from '@material-ui/icons/Share';
+import { useSizedIconButtonStyles } from '@mui-treasury/styles/iconButton/sized';
 import { useSoftRiseShadowStyles } from '@mui-treasury/styles/shadow/softRise';
 import { useSlopeCardMediaStyles } from '@mui-treasury/styles/cardMedia/slope';
 import { useN01TextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/n01';
@@ -24,7 +24,10 @@ import Divider from '@material-ui/core/Divider';
 import { useFadedShadowStyles } from '@mui-treasury/styles/shadow/faded';
 import { useGutterBorderedGridStyles } from '@mui-treasury/styles/grid/gutterBordered';
 import { useHistory } from "react-router";
-
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
+import { useLabelIconStyles } from '@mui-treasury/styles/icon/label';
 
 
 const useStyles = makeStyles(({ palette }) => ({
@@ -90,9 +93,18 @@ const useStyles = makeStyles(({ palette }) => ({
 const itemsPerPage = 16
 
 function MyPosts({user,posts,setPosts,addToEdit,deletePost}) {
+  
+  
+  const small = useSizedIconButtonStyles({
+    color: '#000',
+    padding: 8,
+    childSize: 24,
+  });
+  const gutterStyles = usePushingGutterStyles({ space: 3, firstExcluded: true });
+  const iconLabelStyles = useLabelIconStyles({ linked: true });
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
-    const [errors,setErrors]=useState([])
+   // eslint-disable-next-line const [errors,setErrors]=useState([])
     const styles = useStyles();
     const borderedGridStyles = useGutterBorderedGridStyles({
         borderColor: 'rgba(0, 0, 0, 0.08)',
@@ -139,6 +151,13 @@ const handleClick=(post)=>{
     setReviews([review,...reviews])
   }
 
+  const onDeleteReview=(deleteReview)=>{
+   
+    const deletedReviews=reviews&&reviews.filter((review)=>{ return review.id!==deleteReview.id})
+    setReviews(deletedReviews)
+    
+  }
+  
   const onDelete=(post)=>{
     if (window.confirm("Are you sure you want to delete this item?")){
         setIsLoading(true);
@@ -154,7 +173,7 @@ const handleClick=(post)=>{
                 
               })
             } else {
-              r.json().then((err) => setErrors(err.errors));
+              r.json().catch(errors=>alert(errors));
             }
           })
   }
@@ -162,13 +181,13 @@ const handleClick=(post)=>{
 
   return (
     <>
-    {showPost?<PostDetails postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview}/>:
+    {showPost?<PostDetails onDeleteReview={onDeleteReview} postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview} showDeleteButton={true} history={history}/>:
     <div>
         <Card className={cx(styles.card, shadowNewStyles.root)}>
       <CardContent>
         <Avatar className={styles.avatar} src={user.image_url} />
         <h3 className={styles.heading}>{user.username}</h3>
-        <span className={styles.subheader}>Poland</span>
+        <span className={styles.subheader}>{user.bio}</span>
       </CardContent>
       <Divider light />
       <Box display={'flex'}>
@@ -185,6 +204,7 @@ const handleClick=(post)=>{
       <Grid container spacing={3} style={{marginLeft:"4%",marginTop:"5px"}}>
         {currentData &&currentData.map(post=>(
           <Grid item key={post.id}>
+           
            <Card className={cx(cardStyles.root, shadowStyles.root)} onClick={()=>handleClick(post)}>
       <CardMedia
         classes={mediaStyles}
@@ -204,24 +224,29 @@ const handleClick=(post)=>{
       </CardContent>
       
       <Box px={2} pb={2} mt={-2} >
-        <IconButton>
-          <Share />
-        </IconButton>
-        <IconButton>
-          <FavoriteBorderRounded />
-        </IconButton>
-        <Link to={{ pathname: "/New", state: { post } }} onClick={(event) => {
+      <div className={gutterStyles.parent}>
+      <span className={iconLabelStyles.root}>
+      <button type={'button'} tabIndex={0} className={iconLabelStyles.link}>
+      {post.likes.find((like)=>{return like.user_id===user.id})?<><FavoriteIcon className={iconLabelStyles.icon}/>{post.likes.length}</>:<><FavoriteBorderIcon className={iconLabelStyles.icon} /> {post.likes.length}</>}
+      </button>
+      
+        
+        <Link   to={{ pathname: "/New", state: { post } }} classes={small} onClick={(event) => {
     event.stopPropagation();
     onEdit(post);
 }}>
-  <ModeTwoToneIcon />
+  <IconButton aria-label="edit" classes={small} className={iconLabelStyles.icon}>
+  <Edit />
+  </IconButton>
 </Link>
-<IconButton aria-label="delete" onClick={(e)=>{
+<IconButton aria-label="delete" classes={small}  onClick={(e)=>{
     e.stopPropagation()
     onDelete(post)
 }}>
-           {isLoading ? "Loading..." : <DeleteForeverTwoToneIcon />} 
+           {isLoading ? "Loading..." : <Delete  className={iconLabelStyles.icon}/>} 
         </IconButton>
+        </span>
+        </div>
       </Box>
       
     </Card>

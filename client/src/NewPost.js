@@ -85,7 +85,7 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
   const [title,setTitle]=useState('')
   const [content,setContent]=useState('')
   const [url,setUrl]=useState('')
-  const [errors,setErrors]=useState([])
+ // eslint-disable-next-line const [errors,setErrors]=useState([])
   const history = useHistory();
   
   // const [isLoading, setIsLoading] = useState(false);
@@ -143,27 +143,12 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
           updatePost(data)
         })
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        r.json().then((err) => alert(err.errors));
       }
     });
   }
 
-  // const onDelete=()=>{
-  //   setIsLoading(true)
-  //       fetch(`/posts/${editPost.id}`,{
-  //           method:"DELETE"}).then((r) => {
-      
-  //     setIsLoading(false)
-  //             if (r.ok) {
-  //               r.json().then((data)=>{
-  //                 deletePost(data)
-  //               })
-  //               history.push("/My")
-  //             } else {
-  //               r.json().then((err) => setErrors(err.errors));
-  //             }
-  //           })
-  //     }
+  
 
   const styles = useStyles();
   const {
@@ -269,6 +254,7 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
         <Button variant="outlined" style={{marginLeft:100,marginTop:10,color:"purple"}} onClick={onAdd}>create</Button>
       </Stack>
     </div>)}
+    
   </>
   )
 }
