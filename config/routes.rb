@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :follows, only: [:index,:create,:destroy]
   resources :likes
   resources :reviews
   post "/signup", to: "users#create"

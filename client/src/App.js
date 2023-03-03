@@ -13,9 +13,16 @@ function App() {
   const [user, setUser] = useState(null);
   const [posts,setPosts]=useState([])
   const [editPost,setEditPost]=useState([])
-  
+  const [follows,setFollows]=useState([])
 
- 
+  useEffect(()=>{
+    fetch('/follows').then(r=>r.json()).then(setFollows)
+  },[])
+    
+      
+    
+  
+  
   useEffect(()=>{
     fetch("/posts").then(r=>r.json()).then(setPosts)
  
@@ -81,7 +88,7 @@ function App() {
             <NewPost user={user} editPost={editPost} updatePost={updatePost} addToPosts={addToPosts} deletePost={deletePost}/>
         </Route>
           <Route path="/My">
-            <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit} deletePost={deletePost} />
+            <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit} deletePost={deletePost} follows={follows}/>
           </Route>
           <Route path="/">
             <Post  user={user} posts={posts}/>

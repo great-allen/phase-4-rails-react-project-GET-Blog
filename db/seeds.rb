@@ -179,3 +179,22 @@ end
       end
     end
   end
+
+ # Get all users from the database
+users = User.all
+
+# Create follow relationships between users
+users.each do |user|
+  # Randomly select a number of other users to follow
+  num_followings = rand(1..5)
+  
+  # Randomly select that number of other users to follow from the remaining users
+  followings = users.where.not(id: user.id).sample(num_followings)
+  
+  # Create follow relationships between the user and the selected followings
+  followings.each do |following|
+    unless user.followings.include?(following)
+      user.followings << following
+    end
+  end
+end

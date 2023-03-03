@@ -92,8 +92,15 @@ const useStyles = makeStyles(({ palette }) => ({
 
 const itemsPerPage = 16
 
-function MyPosts({user,posts,setPosts,addToEdit,deletePost}) {
+function MyPosts({user,posts,setPosts,addToEdit,deletePost,follows}) {
   
+  
+  const userFollowings=follows.filter((follow)=>{
+    return follow.following_id===user.id
+  })
+  const userFollowers=follows.filter((follow)=>{
+    return follow.follower_id===user.id
+  })
   
   const small = useSizedIconButtonStyles({
     color: '#000',
@@ -193,11 +200,11 @@ const handleClick=(post)=>{
       <Box display={'flex'}>
         <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
           <p className={styles.statLabel}>Followers</p>
-          <p className={styles.statValue}>6941</p>
+          <p className={styles.statValue}>{userFollowers.length}</p>
         </Box>
         <Box p={2} flex={'auto'} className={borderedGridStyles.item}>
           <p className={styles.statLabel}>Following</p>
-          <p className={styles.statValue}>12</p>
+          <p className={styles.statValue}>{userFollowings.length}</p>
         </Box>
       </Box>
     </Card>
