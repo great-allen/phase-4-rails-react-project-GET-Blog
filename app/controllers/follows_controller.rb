@@ -10,9 +10,10 @@ def create
     follow=Follow.create!(follow_params)
     render json: follow, status: :created
 end
+
 def destroy
     follow=find_follow
-    if post
+    if follow
         follow.destroy
         render json: follow,status: :ok
     else
@@ -26,7 +27,7 @@ end
       end
 
     def follow_params
-        params_permit(:follower_id,:following_id)
+        params.permit(:follower_id,:following_id)
     end
     def render_not_found_response
         render json: { error: "Follow not found" }, status: :not_found

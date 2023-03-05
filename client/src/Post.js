@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
 
 const itemsPerPage = 16
 
-function Post({user,posts}) {
+function Post({user,posts,follows,onAddFollowing,onDeleteFollow,onAddLike,onDeleteLike}) {
   const gutterStyles = usePushingGutterStyles({ space: 3, firstExcluded: true });
   const iconLabelStyles = useLabelIconStyles({ linked: true });
   const cardStyles = useStyles();
@@ -83,10 +83,57 @@ const handleClick=(post)=>{
     setReviews([review,...reviews])
   }
 
+ const deleteLike=(likePost)=>{
+    const id=likePost.likes.find((post)=>{
+      return post.user_id===user.id
+    }).id
+    
+    fetch(`/likes/${id}`,{
+      method: "DELETE"
+  }).then((r) => {
+    
+    
+      if (r.ok) {
+          
+        r.json().then((data) => {
+          
+          onDeleteLike(data)
+          
+        })
+      } else {
+      r.json().then((err) => alert(err.errors));
+    }
+  });
+  }
+  const addLike=(likePost)=>{
+    fetch('/likes',{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          post_id: likePost.id,
+          user_id: user.id
+      }),
+  }).then((r) => {
+      
+      
+      if (r.ok) {
+          
+        r.json().then((data) => {
+          
+          onAddLike(data)
+          
+        })
+      } else {
+      r.json().then((err) => alert(err.errors));
+    }
+  });
+  }
   
   return (
     <>
-    {showPost?<PostDetails postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview}/>:
+    {showPost?<PostDetails postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview} follows={follows} onAddFollowing={onAddFollowing} onDeleteFollow={onDeleteFollow}  />:
     <div>
       <Grid container spacing={3} style={{marginLeft:"4%",marginTop:"5px"}}>
         {currentData &&currentData.map(post=>(
@@ -104,14 +151,19 @@ const handleClick=(post)=>{
           classes={textCardContentStyles}
           heading={post.title}
           body={
-            post.content
+            post.content.length > 20 ? post.content.substring(0, 22) + "..." : post.content
           }
         />
       </CardContent>
       <Box px={2} pb={2} mt={-1}>
       <div className={gutterStyles.parent}>
       <button type={'button'} tabIndex={0} className={iconLabelStyles.link}>
-        {post.likes.find((like)=>{return like.user_id===user.id})?<><FavoriteIcon className={iconLabelStyles.icon}/>{post.likes.length}</>:<><FavoriteBorderIcon className={iconLabelStyles.icon} /> {post.likes.length}</>}
+        {post.likes.find((like)=>{return like.user_id===user.id})?<><FavoriteIcon className={iconLabelStyles.icon} onClick={(e)=>{
+          e.stopPropagation()
+          deleteLike(post)}}/>{post.likes.length}</>:
+          <><FavoriteBorderIcon className={iconLabelStyles.icon} onClick={(e)=>{
+            e.stopPropagation()
+            addLike(post)}} /> {post.likes.length}</>}
         
       </button>
       </div>

@@ -92,7 +92,7 @@ const useStyles = makeStyles(({ palette }) => ({
 
 const itemsPerPage = 16
 
-function MyPosts({user,posts,setPosts,addToEdit,deletePost,follows}) {
+function MyPosts({user,posts,addToEdit,deletePost,follows,onAddLike,onDeleteLike,fetchPosts}) {
   
   
   const userFollowings=follows.filter((follow)=>{
@@ -186,9 +186,69 @@ const handleClick=(post)=>{
   }
 }
 
+const deleteLike=(likePost)=>{
+  const id=likePost.likes.find((post)=>{
+    return post.user_id===user.id
+  }).id
+  
+  fetch(`/likes/${id}`,{
+    method: "DELETE"
+}).then((r) => {
+  
+  
+    if (r.ok) {
+        
+      r.json().then((data) => {
+        
+        onDeleteLike(data)
+        
+      })
+    } else {
+    r.json().then((err) => alert(err.errors));
+  }
+});
+}
+const addLike=(likePost)=>{
+  fetch('/likes',{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        post_id: likePost.id,
+        user_id: user.id
+    }),
+}).then((r) => {
+    
+    
+    if (r.ok) {
+        
+      r.json().then((data) => {
+        
+        onAddLike(data)
+        
+      })
+    } else {
+    r.json().then((err) => alert(err.errors));
+  }
+});
+}
+
+// const handleLikeAdd=(newLike)=>{
+//   // postDetail.likes.push(newLike)
+//   // const newPostDetail=posts.find((post)=>{
+//   //   return post.id===postDetail.id
+//   // })
+//   // setPostDetail(newPostDetail)
+  
+// }
+// const handleLikeDelete=(newLike)=>{
+//   console.log(newLike);
+// }
+
   return (
     <>
-    {showPost?<PostDetails onDeleteReview={onDeleteReview} postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview} showDeleteButton={true} history={history}/>:
+    {showPost?<PostDetails onDeleteReview={onDeleteReview} postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview} showDeleteButton={true} history={history} follows={follows} />:
     <div>
         <Card className={cx(styles.card, shadowNewStyles.root)}>
       <CardContent>
@@ -225,7 +285,7 @@ const handleClick=(post)=>{
           classes={textCardContentStyles}
           heading={post.title}
           body={
-            post.content
+            post.content.length > 20 ? post.content.substring(0, 22) + "..." : post.content
           }
         />
       </CardContent>
@@ -234,7 +294,11 @@ const handleClick=(post)=>{
       <div className={gutterStyles.parent}>
       <span className={iconLabelStyles.root}>
       <button type={'button'} tabIndex={0} className={iconLabelStyles.link}>
-      {post.likes.find((like)=>{return like.user_id===user.id})?<><FavoriteIcon className={iconLabelStyles.icon}/>{post.likes.length}</>:<><FavoriteBorderIcon className={iconLabelStyles.icon} /> {post.likes.length}</>}
+      {post.likes.find((like)=>{return like.user_id===user.id})?<><FavoriteIcon className={iconLabelStyles.icon} onClick={(e)=>{
+          e.stopPropagation()
+          deleteLike(post)}}/>{post.likes.length}</>:<><FavoriteBorderIcon className={iconLabelStyles.icon} onClick={(e)=>{
+            e.stopPropagation()
+            addLike(post)}}/> {post.likes.length}</>}
       </button>
       
         

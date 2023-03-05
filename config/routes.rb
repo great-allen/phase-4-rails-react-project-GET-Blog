@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :follows, only: [:index,:create,:destroy]
-  resources :likes
+  resources :likes, only: [:index,:create,:destroy]
   resources :reviews
   post "/signup", to: "users#create"
   get "/me", to: "users#show"

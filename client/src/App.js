@@ -14,7 +14,7 @@ function App() {
   const [posts,setPosts]=useState([])
   const [editPost,setEditPost]=useState([])
   const [follows,setFollows]=useState([])
-
+  const [searchTerm,setSearchTerm]=useState('')
   useEffect(()=>{
     fetch('/follows').then(r=>r.json()).then(setFollows)
   },[])
@@ -78,20 +78,52 @@ function App() {
       });
   };
   
+  const onAddFollowing=(newFollow)=>{
+    setFollows([newFollow,...follows])
+  }
+
+  const onDeleteFollow=(deleteFollow)=>{
+    const deletedFollows=follows.filter((follow)=>{
+      return follow.id!==deleteFollow.id
+    })
+    setFollows(deletedFollows)
+  }
+
+  const fetchPosts=()=>{fetch('/posts').then(r=>r.json()).then(newPosts => {
+    setPosts(newPosts);
+  }).catch(err=>alert(err))}
+
+  const onAddLike=(post)=>{
+    fetchPosts()
+  }
+  const onDeleteLike=(post)=>{
+    fetchPosts()
+  }
+
+  // const handleLikeAdd=()=>{
+  //   fetchPosts()
+  // }
+  // const handleLikeDelete=()=>{
+  //   fetchPosts()
+  // }
+
+  const postsToDisplay=posts.filter((post)=>{
+    return post.title.toLowerCase().includes(searchTerm.toLowerCase())
+   })
 
   return (
     <>
     
-      <NavBar user={user} setUser={setUser}/>
+      <NavBar user={user} setUser={setUser} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       <Switch>
       <Route path="/New">
             <NewPost user={user} editPost={editPost} updatePost={updatePost} addToPosts={addToPosts} deletePost={deletePost}/>
         </Route>
           <Route path="/My">
-            <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit} deletePost={deletePost} follows={follows}/>
+            <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit} deletePost={deletePost} follows={follows} onDeleteLike={onDeleteLike} onAddLike={onAddLike} fetchPosts={fetchPosts}/>
           </Route>
           <Route path="/">
-            <Post  user={user} posts={posts}/>
+            <Post  user={user} posts={postsToDisplay} follows={follows} onAddFollowing={onAddFollowing} onDeleteFollow={onDeleteFollow} onAddLike={onAddLike} onDeleteLike={onDeleteLike} />
           </Route>
       </Switch>
     

@@ -8,14 +8,14 @@ import '@fontsource/roboto/700.css';
 function Login({ onLogin }) {
     const [showLogin, setShowLogin] = useState(true);
   return (
-    <div style={{display:"flex",flexDirection: 'column',justifyContent:"center",alignItems:"center",height:"100vh"}}>
+    <div style={{display:"flex",flexDirection: 'column',justifyContent:"center",alignItems:"center",height:"100vh",marginTop:"-90px"}}>
         <h1>GET</h1>
         <h3>Get Everyone Together</h3>
         {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} />
          
-          <p>
+          <p style={{textAlign:"left"}}>
             Don't have an account? &nbsp;
             <Button color="secondary" onClick={() => setShowLogin(false)}>
               Sign Up
@@ -26,7 +26,7 @@ function Login({ onLogin }) {
         <>
           <SignupForm onLogin={onLogin} />
           
-          <p>
+          <p style={{textAlign: "left"}}>
             Already have an account? &nbsp;
             <Button color="secondary" onClick={() => setShowLogin(true)}>
               Log In

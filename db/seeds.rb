@@ -138,23 +138,25 @@
 
 
 
-# 102.times do |i|
-#   Post.create(title: Faker::Lorem.sentence(word_count: 2), content: Faker::Lorem.paragraph(sentence_count: 4), image_url: Faker::Avatar.image(slug: Faker::Lorem.word, size: '400x300', format: 'jpg'), user_id: rand(1..25))
+# 200.times do |i|
+# #     avatar_sets = ["set17", "set32", "set31","set28","set19"]
+# # avatar_set = avatar_sets.sample
+#   Post.create(title: Faker::Lorem.sentence(word_count: 2), content: Faker::Lorem.paragraph(sentence_count: 5), image_url: Faker::Avatar.image(slug: Faker::Lorem.word, size: '1200x900', format: 'jpg', set: 'set10'), user_id: rand(1..25))
 # end
 
-# 100.times do
+# 200.times do
 #     # Generate random user_id between 1 and 15
 #     user_id = rand(1..25)
   
 #     # Generate random post_id between 1 and 100
-#     post_id = rand(1..102)
+#     post_id = rand(1..200)
   
 #     # Create a new record with the random user_id and post_id
-#     Review.create(user_id: user_id, post_id: post_id,content:Faker::Lorem.paragraph(sentence_count: 3))
+#     Review.create(user_id: user_id, post_id: post_id,content:Faker::Lorem.paragraph(sentence_count: 5))
 #   end
-#   (1..102).each do |post_id|
+#   (1..200).each do |post_id|
 #     (1..25).each do |user_id|
-#       Review.create(user_id: user_id, post_id: post_id, content: Faker::Lorem.paragraph(sentence_count: 3))
+#       Review.create(user_id: user_id, post_id: post_id, content: Faker::Lorem.paragraph(sentence_count: 5))
 #     end
 #   end
   
@@ -169,7 +171,7 @@
 #   # end
 
 #   25.times do |user_index|
-#     102.times do |post_index|
+#     200.times do |post_index|
 #       # Randomly generate a boolean value to determine if the user likes the post
 #       likes_post = [true, false].sample
       
@@ -186,7 +188,7 @@
 # # Create follow relationships between users
 # users.each do |user|
 #   # Randomly select a number of other users to follow
-#   num_followings = rand(1..15)
+#   num_followings = rand(1..20)
   
 #   # Randomly select that number of other users to follow from the remaining users
 #   followings = users.where.not(id: user.id).sample(num_followings)
