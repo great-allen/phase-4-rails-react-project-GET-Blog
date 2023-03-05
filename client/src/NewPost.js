@@ -44,7 +44,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     marginRight: 'auto',
     marginTop: spacing(-3),
     height: 0,
-    paddingBottom: '48%',
+    paddingBottom: '52%',
     borderRadius: spacing(2),
     backgroundColor: '#fff',
     position: 'relative',
@@ -161,9 +161,9 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
     {editPost.length!==0? 
     (<div className="NewPostDiv" >
       
-      <BrandCardHeader
+      <BrandCardHeader 
     image={
-      user.image_url
+      <img src={user.image_url} alt=''/>
     }
     
     extra={
