@@ -204,7 +204,7 @@ function PostDetails({follows,history,postDetail,user,reviews,onAddReview,showDe
 
   return (
     <>
-    <div style={{marginTop:"15px"}}>
+    <div style={{marginTop:"16px"}}>
     <Card className={cx(cardStyles.root, shadowStyles.root)}>
     <CardHeader
         
