@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+// import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { styled, alpha } from '@mui/material/styles';
@@ -115,7 +115,7 @@ function NavBar({ user, setUser,searchTerm,setSearchTerm }) {
       </Container>
     </Navbar> */}
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position='relative'>
         <Toolbar>
           {/* <IconButton
             size="large"
@@ -145,6 +145,7 @@ function NavBar({ user, setUser,searchTerm,setSearchTerm }) {
             <Nav.Link href="/" >Feeds</Nav.Link>
             <Nav.Link href="/My">My posts</Nav.Link>
             <Nav.Link href="/New">New post</Nav.Link>
+            <Nav.Link href="/Logout" onClick={handleLogoutClick}>Logout</Nav.Link>
             
             
           </Nav>
@@ -153,12 +154,13 @@ function NavBar({ user, setUser,searchTerm,setSearchTerm }) {
         <Navbar.Collapse className="justify-content-end">
        
           <Navbar.Text>
-            Signed in as: 
+            Signed in as: {user.username}
           </Navbar.Text>
-          <NavDropdown title={user.username} id="basic-nav-dropdown" style={{marginRight:"14px",marginLeft:"5px"}}>
-              <NavDropdown.Item href="/Logout" onClick={handleLogoutClick}>Logout</NavDropdown.Item>
-              </NavDropdown>
+          {/* <NavDropdown title={user.username} id="basic-nav-dropdown" style={{marginRight:"14px",marginLeft:"5px"}}>
+              <NavDropdown.Item href="/Logout" onClick={handleLogoutClick} style={{height:"50px",position:"absolute"}}>Logout</NavDropdown.Item>
+              </NavDropdown> */}
         </Navbar.Collapse>
+        
       </Container>
     </Navbar>
           </Typography>
@@ -173,6 +175,7 @@ function NavBar({ user, setUser,searchTerm,setSearchTerm }) {
           </Search> */}
           {searchComponent}
         </Toolbar>
+        
       </AppBar>
     </Box>
     </div>
