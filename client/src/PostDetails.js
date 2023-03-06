@@ -30,6 +30,7 @@ const useStyles = makeStyles(() => ({
     root: {
       maxWidth: 304,
       margin: 'auto',
+      
     },
     content: {
       padding: 24,
@@ -203,7 +204,7 @@ function PostDetails({follows,history,postDetail,user,reviews,onAddReview,showDe
 
   return (
     <>
-    <div>
+    <div style={{marginTop:"15px"}}>
     <Card className={cx(cardStyles.root, shadowStyles.root)}>
     <CardHeader
         
