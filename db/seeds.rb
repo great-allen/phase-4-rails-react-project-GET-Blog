@@ -1,23 +1,23 @@
 
 
-# # This file should contain all the record creation needed to seed the database with its default values.
-# # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-# #
-# # Examples:
-# #
-# #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-# #   Character.create(name: 'Luke', movie: movies.first)
-# puts "⚔🛡 Generating Users... 🛡⚔"
-# u1 = User.create(username: 'user1', password: 'password',image_url:"https://i.pinimg.com/originals/fa/56/85/fa5685f79cc76a868d1d52cbc561d6fd.png",bio: Faker::Movies::StarWars.quote)
-# u2 = User.create(username: 'user2', password: 'password',image_url:"https://images3.alphacoders.com/905/thumb-1920-905410.jpg",bio: Faker::Movies::StarWars.quote)
-# u3 = User.create(username: 'user3', password: 'password',image_url:"https://play-lh.googleusercontent.com/5z9Pz6hivpD5QctfHl4KR5UOkQHbBifmaJvG-SVHbG7aWvybPawSJCNJHXVsTcLFXnQ",bio: Faker::Movies::StarWars.quote)
-# u4 = User.create(username: 'user4', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRVtgHw_yNlNQIfTrZ59-TuNv_NgiHTZRCBtsQYA3Jf7Bu56nLq6dglejLPp3T9lo2RUc&usqp=CAU",bio: Faker::Movies::StarWars.quote)
-# u5 = User.create(username: 'user5', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTpXsNalmyVtG44s1NvbaMbEveYyzE-blMcOweTsXTz8-omWZYygn64Oh2lNw2qoMbdVg&usqp=CAU",bio: Faker::Movies::StarWars.quote)
-# u6 = User.create(username: 'user6', password: 'password',image_url:"https://m.media-amazon.com/images/I/717Hm5vNciL._AC_UF894,1000_QL80_.jpg",bio: Faker::Quote.famous_last_words)
-# u7 = User.create(username: 'user7', password: 'password',image_url:"https://media.wired.com/photos/5933097ba30e27707249b60d/master/w_2560%2Cc_limit/legendofkorra.jpg",bio: Faker::Quote.famous_last_words)
-# u8 = User.create!(username: 'user8', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtcY3faNt3d0NbDf6iMzbeAhhfzXYJJgyww&usqp=CAU",bio: Faker::Quote.famous_last_words)
-# u9 = User.create!(username: 'user9', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf8Cfq9X4qWFNB_7a2vB3MYVYgCebxkq_TCg&usqp=CAU",bio: Faker::Quote.famous_last_words)
-# u10 = User.create!(username: 'user10', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQfhsmMFZoHjaM7rW2i9d2RdWOkdNDrapwWBL6TFWf6d3JYmtPQgY5n3ieHRdDPhIq0pI&usqp=CAU",bio: Faker::Quote.famous_last_words)
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
+puts "⚔🛡 Generating Users... 🛡⚔"
+u1 = User.create(username: 'user1', password: 'password',image_url:"https://i.pinimg.com/originals/fa/56/85/fa5685f79cc76a868d1d52cbc561d6fd.png",bio: Faker::Movies::StarWars.quote)
+u2 = User.create(username: 'user2', password: 'password',image_url:"https://images3.alphacoders.com/905/thumb-1920-905410.jpg",bio: Faker::Movies::StarWars.quote)
+u3 = User.create(username: 'user3', password: 'password',image_url:"https://play-lh.googleusercontent.com/5z9Pz6hivpD5QctfHl4KR5UOkQHbBifmaJvG-SVHbG7aWvybPawSJCNJHXVsTcLFXnQ",bio: Faker::Movies::StarWars.quote)
+u4 = User.create(username: 'user4', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRVtgHw_yNlNQIfTrZ59-TuNv_NgiHTZRCBtsQYA3Jf7Bu56nLq6dglejLPp3T9lo2RUc&usqp=CAU",bio: Faker::Movies::StarWars.quote)
+u5 = User.create(username: 'user5', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTpXsNalmyVtG44s1NvbaMbEveYyzE-blMcOweTsXTz8-omWZYygn64Oh2lNw2qoMbdVg&usqp=CAU",bio: Faker::Movies::StarWars.quote)
+u6 = User.create(username: 'user6', password: 'password',image_url:"https://m.media-amazon.com/images/I/717Hm5vNciL._AC_UF894,1000_QL80_.jpg",bio: Faker::Quote.famous_last_words)
+u7 = User.create(username: 'user7', password: 'password',image_url:"https://media.wired.com/photos/5933097ba30e27707249b60d/master/w_2560%2Cc_limit/legendofkorra.jpg",bio: Faker::Quote.famous_last_words)
+u8 = User.create!(username: 'user8', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPtcY3faNt3d0NbDf6iMzbeAhhfzXYJJgyww&usqp=CAU",bio: Faker::Quote.famous_last_words)
+u9 = User.create!(username: 'user9', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf8Cfq9X4qWFNB_7a2vB3MYVYgCebxkq_TCg&usqp=CAU",bio: Faker::Quote.famous_last_words)
+u10 = User.create!(username: 'user10', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQfhsmMFZoHjaM7rW2i9d2RdWOkdNDrapwWBL6TFWf6d3JYmtPQgY5n3ieHRdDPhIq0pI&usqp=CAU",bio: Faker::Quote.famous_last_words)
 # u11 = User.create!(username: 'user11', password: 'password',image_url:"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/67bb5ee0-0fed-4bf5-8057-5e6dee7852ef/ddmuuxl-3d9271b2-623c-4e2b-b02c-b92789a20f3e.png/v1/fill/w_600,h_600,q_80,strp/my_winter_discord_profile_pic_by_rovingneophyte_ddmuuxl-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NjAwIiwicGF0aCI6IlwvZlwvNjdiYjVlZTAtMGZlZC00YmY1LTgwNTctNWU2ZGVlNzg1MmVmXC9kZG11dXhsLTNkOTI3MWIyLTYyM2MtNGUyYi1iMDJjLWI5Mjc4OWEyMGYzZS5wbmciLCJ3aWR0aCI6Ijw9NjAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.9KytYKsxS13Vj7adSZzVr05I9Ba-EzQdM2kg4423sgw",bio: Faker::Quote.famous_last_words)
 # u12= User.create!(username: 'user12', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkRJoutGJC_ivK2nGTalCV76z1mYcYUkXh7t_ut0ey6_0Ykubkaglqnu318HOmJeiV-mQ&usqp=CAU",bio: Faker::Quote.famous_last_words)
 # u13= User.create!(username: 'user13', password: 'password',image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTOpRgs71breABoDi9MFFMd_OHEBXS2IEL1Nx045fXhohiUUoA1IxMy_1TCoc3WkbEa_8&usqp=CAU",bio: Faker::Quote.famous_last_words)
@@ -35,61 +35,61 @@
 # u25= User.create!(username: 'user25', password: 'password',image_url:"https://images.wallpapersden.com/image/ws-crow-bakuman_69651.jpg",bio: Faker::Quote.famous_last_words)
 
 
-# puts "⚔🛡 Generating Posts... 🛡⚔"
-# 200.times do |i|
-# #     avatar_sets = ["set17", "set32", "set31","set28","set19"]
-# # avatar_set = avatar_sets.sample
+puts "⚔🛡 Generating Posts... 🛡⚔"
+50.times do |i|
+#     avatar_sets = ["set17", "set32", "set31","set28","set19"]
+# avatar_set = avatar_sets.sample
     
-#   Post.create!(title: Faker::Lorem.sentence(word_count: 2), content: Faker::Lorem.paragraph(sentence_count: 5), image_url: Faker::Avatar.image(slug: Faker::Lorem.word, size: '1200x900', format: 'jpg', set: 'set10'), user_id: rand(1..25))
-# end
+  Post.create!(title: Faker::Lorem.sentence(word_count: 2), content: Faker::Lorem.paragraph(sentence_count: 5), image_url: Faker::Avatar.image(slug: Faker::Lorem.word, size: '1200x900', format: 'jpg', set: 'set10'), user_id: rand(1..10))
+end
 
-# puts "⚔🛡 Generating Reviews... 🛡⚔"
-# 200.times do
-#     # Generate random user_id between 1 and 15
-#     user_id = rand(1..25)
+puts "⚔🛡 Generating Reviews... 🛡⚔"
+50.times do
+    # Generate random user_id between 1 and 15
+    user_id = rand(1..10)
   
-#     # Generate random post_id between 1 and 100
-#     post_id = rand(1..200)
+    # Generate random post_id between 1 and 100
+    post_id = rand(1..50)
   
-#     # Create a new record with the random user_id and post_id
-#     Review.create!(user_id: user_id, post_id: post_id,content:Faker::Lorem.paragraph(sentence_count: 5))
-#   end
-#   (1..200).each do |post_id|
-#     (1..25).each do |user_id|
-#       Review.create!(user_id: user_id, post_id: post_id, content: Faker::Lorem.paragraph(sentence_count: 5))
-#     end
-#   end
+    # Create a new record with the random user_id and post_id
+    Review.create!(user_id: user_id, post_id: post_id,content:Faker::Lorem.paragraph(sentence_count: 5))
+  end
+  (1..50).each do |post_id|
+    (1..10).each do |user_id|
+      Review.create!(user_id: user_id, post_id: post_id, content: Faker::Lorem.paragraph(sentence_count: 5))
+    end
+  end
   
 
  
-#   puts "⚔🛡 Generating Follows... 🛡⚔"
-#   25.times do |user_index|
-#     200.times do |post_index|
-#       # Randomly generate a boolean value to determine if the user likes the post
-#       likes_post = [true, false].sample
+  puts "⚔🛡 Generating Follows... 🛡⚔"
+  10.times do |user_index|
+    50.times do |post_index|
+      # Randomly generate a boolean value to determine if the user likes the post
+      likes_post = [true, false].sample
       
-#       # Create a new like record for the user and post if they like the post
-#       if likes_post
-#         Like.create!(user_id: user_index + 1, post_id: post_index + 1)
-#       end
-#     end
-#   end
+      # Create a new like record for the user and post if they like the post
+      if likes_post
+        Like.create!(user_id: user_index + 1, post_id: post_index + 1)
+      end
+    end
+  end
 
-#  # Get all users from the database
-# users = User.all
+ # Get all users from the database
+users = User.all
 
-# # Create follow relationships between users
-# users.each do |user|
-#   # Randomly select a number of other users to follow
-#   num_followings = rand(1..20)
+# Create follow relationships between users
+users.each do |user|
+  # Randomly select a number of other users to follow
+  num_followings = rand(1..10)
   
-#   # Randomly select that number of other users to follow from the remaining users
-#   followings = users.where.not(id: user.id).sample(num_followings)
+  # Randomly select that number of other users to follow from the remaining users
+  followings = users.where.not(id: user.id).sample(num_followings)
   
-#   # Create follow relationships between the user and the selected followings
-#   followings.each do |following|
-#     unless user.followings.include?(following)
-#       user.followings << following
-#     end
-#   end
-# end
+  # Create follow relationships between the user and the selected followings
+  followings.each do |following|
+    unless user.followings.include?(following)
+      user.followings << following
+    end
+  end
+end
