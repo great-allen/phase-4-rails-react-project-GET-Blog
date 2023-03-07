@@ -148,7 +148,7 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
     });
   }
 
-  
+  console.log(editPost.image_url);
 
   const styles = useStyles();
   const {
@@ -163,7 +163,7 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
       
       <BrandCardHeader 
     image={
-      <img src={user.image_url} alt=''/>
+      user.image_url
     }
     
     extra={
@@ -184,7 +184,7 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
         image={
           editPost.image_url
         }
-        sr
+        
       />
       <CardContent>
         {isEdit?
@@ -217,7 +217,7 @@ function NewPost({editPost,user,updatePost,addToPosts}) {
     </div>):
   (<div className="NewPostDiv" >
     <BrandCardHeader
-    image={
+     image={
       user.image_url
     }
     

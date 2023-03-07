@@ -291,9 +291,7 @@ function PostDetails({follows,history,postDetail,user,reviews,onAddReview,showDe
       </ListGroup>
     );
   })
-) : (
-  <p>No Review yet, please write your review</p>
-)}
+) : ''}
 
     </>
   )
