@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import Post from "./Post";
 import NewPost from "./NewPost";
-
+import Loader from './Loader'
 import MyPosts from "./MyPosts";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -15,6 +15,7 @@ function App() {
   const [editPost,setEditPost]=useState([])
   const [follows,setFollows]=useState([])
   const [searchTerm,setSearchTerm]=useState('')
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
     fetch('/follows').then(r=>r.json()).then(setFollows)
   },[])
@@ -28,14 +29,26 @@ function App() {
  
 },[])
   
-  useEffect(() => {
-    // auto-login
-    fetch("/me").then((r) => {
+useEffect(() => {
+  // auto-login
+  fetch("/me")
+    .then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => {
+          setUser(user);
+          setIsLoading(false);
+          
+        });
+      } else {
+        setIsLoading(false);
       }
-    });
-  }, []);
+    })
+    .catch(() => setIsLoading(false));
+}, []);
+
+if (isLoading) {
+  return <Loader/>;
+}
   
 
   if (!user) return <Login onLogin={setUser} />;
