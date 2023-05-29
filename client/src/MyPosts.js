@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import PostDetails from "./PostDetails";
-
+import FaceIcon from '@mui/icons-material/Face';
 import Delete from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import cx from 'clsx';
@@ -252,7 +252,7 @@ const addLike=(likePost)=>{
     <div>
         <Card className={cx(styles.card, shadowNewStyles.root)}>
       <CardContent>
-        <Avatar className={styles.avatar} src={user.image_url} />
+        <Avatar className={styles.avatar} src={user.url?user.url:<FaceIcon/>} />
         <h3 className={styles.heading}>{user.username}</h3>
         <span className={styles.subheader}>{user.bio}</span>
       </CardContent>

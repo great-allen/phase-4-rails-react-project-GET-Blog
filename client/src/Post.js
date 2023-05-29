@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 
 import Stack from '@mui/material/Stack';
-
+import FaceIcon from '@mui/icons-material/Face';
 import PostDetails from "./PostDetails";
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
 
 const itemsPerPage = 16
 
-function Post({user,posts,follows,onAddFollowing,onDeleteFollow,onAddLike,onDeleteLike}) {
+function Post({user,posts,follows,onAddFollowing,onDeleteFollow,onAddLike,onDeleteLike,searchTerm,setSearchTerm}) {
   const gutterStyles = usePushingGutterStyles({ space: 3, firstExcluded: true });
   const iconLabelStyles = useLabelIconStyles({ linked: true });
   const cardStyles = useStyles();
@@ -59,6 +59,8 @@ function Post({user,posts,follows,onAddFollowing,onDeleteFollow,onAddLike,onDele
   const [page, setPage] = useState(1);
   const [showPost,setShowPost]=useState(false)
   const [postDetail,setPostDetail]=useState([])
+  
+
   
   
   // Pagination
@@ -135,6 +137,7 @@ const handleClick=(post)=>{
     <>
     {showPost?<PostDetails postDetail={postDetail} user={user} reviews={reviews} onAddReview={onAddReview} follows={follows} onAddFollowing={onAddFollowing} onDeleteFollow={onDeleteFollow}  />:
     <div>
+      {/* {searchComponent} */}
       <Grid container spacing={3} style={{marginLeft:"4%",marginTop:"5px"}}>
         {currentData &&currentData.map(post=>(
           <Grid item key={post.id}>
@@ -145,7 +148,7 @@ const handleClick=(post)=>{
           post.image_url
         }
       />
-      <Avatar className={cardStyles.avatar} src={post.user.image_url} />
+      <Avatar className={cardStyles.avatar} src={post.user.url? post.user.url:<FaceIcon/>} />
       <CardContent className={cardStyles.content}>
         <TextInfoContent
           classes={textCardContentStyles}

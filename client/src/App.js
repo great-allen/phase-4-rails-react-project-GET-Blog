@@ -8,7 +8,7 @@ import Loader from './Loader'
 import MyPosts from "./MyPosts";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
+import MyProfile from "./MyProfile";
 function App() {
   const [user, setUser] = useState(null);
   const [posts,setPosts]=useState([])
@@ -120,7 +120,7 @@ if (isLoading) {
   //   fetchPosts()
   // }
 
-  const postsToDisplay=posts.filter((post)=>{
+  const postsToDisplay=posts&&posts.filter((post)=>{
     return post.title.toLowerCase().includes(searchTerm.toLowerCase())
    })
 
@@ -135,8 +135,11 @@ if (isLoading) {
           <Route path="/My">
             <MyPosts setPosts={setPosts} user={user} posts={posts} addToEdit={addToEdit} deletePost={deletePost} follows={follows} onDeleteLike={onDeleteLike} onAddLike={onAddLike} fetchPosts={fetchPosts}/>
           </Route>
+          <Route path="/MyProfile">
+            <MyProfile user={user} setUser={setUser}/>
+          </Route>
           <Route path="/">
-            <Post  user={user} posts={postsToDisplay} follows={follows} onAddFollowing={onAddFollowing} onDeleteFollow={onDeleteFollow} onAddLike={onAddLike} onDeleteLike={onDeleteLike} />
+            <Post  user={user} posts={postsToDisplay} follows={follows} onAddFollowing={onAddFollowing} onDeleteFollow={onDeleteFollow} onAddLike={onAddLike} onDeleteLike={onDeleteLike} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </Route>
       </Switch>
     

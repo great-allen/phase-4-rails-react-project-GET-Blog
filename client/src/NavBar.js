@@ -1,19 +1,19 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-
+import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-
+import Stack from '@mui/material/Stack';
 import SearchIcon from '@mui/icons-material/Search';
 import { useLocation } from 'react-router-dom';
-
+import FaceIcon from '@mui/icons-material/Face';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -62,7 +62,9 @@ function NavBar({ user, setUser,searchTerm,setSearchTerm }) {
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
-        setUser(null);
+        localStorage.clear();
+        setUser(null)
+        window.location.href = "/";
       }
     });
   }
@@ -85,7 +87,7 @@ function NavBar({ user, setUser,searchTerm,setSearchTerm }) {
 
   return (
     <div>
-        {/* <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg">
       <Container fluid>
         <Navbar.Brand style={{color:"#FA7921"}}>Welcome to GET community</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -103,110 +105,29 @@ function NavBar({ user, setUser,searchTerm,setSearchTerm }) {
           </Nav>
           
         </Navbar.Collapse>
+        
         <Navbar.Collapse className="justify-content-end">
-       
-          <Navbar.Text>
+        
+          <Navbar.Text style={{marginRight:5}}>
+          
             Signed in as: 
           </Navbar.Text>
-          <NavDropdown title={user.username} id="basic-nav-dropdown" style={{marginRight:"14px"}}>
+          {user.url?<Avatar alt={user.username} src={user.url} />:<Avatar><FaceIcon/></Avatar>}
+          <NavDropdown title={user.username} id="basic-nav-dropdown" style={{marginRight:"14px",marginLeft:5}}>
+              <NavDropdown.Item href="/MyProfile" >My Profile</NavDropdown.Item>
               <NavDropdown.Item href="/Logout" onClick={handleLogoutClick}>Logout</NavDropdown.Item>
               </NavDropdown>
+         
         </Navbar.Collapse>
+        {searchComponent}
       </Container>
-    </Navbar> */}
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='relative'>
-        <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            
-          </IconButton> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-             <Navbar  expand="lg">
-      <Container fluid>
-        <Navbar.Brand style={{color:"#FA7921"}}>Welcome to GET community</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '150px',marginLeft:"10%" }}
-            navbarScroll
-          >
-            <Nav.Link href="/" >Feeds</Nav.Link>
-            <Nav.Link href="/My">My posts</Nav.Link>
-            <Nav.Link href="/New">New post</Nav.Link>
-            <Nav.Link href="/Logout" onClick={handleLogoutClick}>Logout</Nav.Link>
-            
-            
-          </Nav>
-          
-        </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-       
-          <Navbar.Text>
-            Signed in as: {user.username}
-          </Navbar.Text>
-          {/* <NavDropdown title={user.username} id="basic-nav-dropdown" style={{marginRight:"14px",marginLeft:"5px"}}>
-              <NavDropdown.Item href="/Logout" onClick={handleLogoutClick} style={{height:"50px",position:"absolute"}}>Logout</NavDropdown.Item>
-              </NavDropdown> */}
-        </Navbar.Collapse>
-        
-      </Container>
+      
     </Navbar>
-          </Typography>
-          {/* <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search> */}
-          {searchComponent}
-        </Toolbar>
-        
-      </AppBar>
-    </Box>
+   
     </div>
   );
 }
 
-// const Wrapper = styled.header`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 8px;
-// `;
 
-// const Logo = styled.h1`
-//   font-family: "Permanent Marker", cursive;
-//   font-size: 3rem;
-//   color: deeppink;
-//   margin: 0;
-//   line-height: 1;
-
-//   a {
-//     color: inherit;
-//     text-decoration: none;
-//   }
-// `;
-
-// const Nav = styled.nav`
-//   display: flex;
-//   gap: 4px;
-//   position: absolute;
-//   right: 8px;
-// `;
 
 export default NavBar;

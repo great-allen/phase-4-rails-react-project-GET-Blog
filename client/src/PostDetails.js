@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import FaceIcon from '@mui/icons-material/Face';
 import { red } from '@mui/material/colors';
 // import { useHistory } from "react-router";
 import cx from 'clsx';
@@ -225,7 +225,7 @@ function PostDetails({follows,history,postDetail,user,reviews,onAddReview,showDe
           postDetail.image_url
         }
       />
-      <Avatar className={cardStyles.avatar} src={postDetail.user.image_url} />
+      <Avatar className={cardStyles.avatar} src={postDetail.user.url?postDetail.user.url:<FaceIcon/>} />
       <CardContent className={cardStyles.content}>
         <TextInfoContent
           classes={textCardContentStyles}
